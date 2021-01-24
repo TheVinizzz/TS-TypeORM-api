@@ -1,5 +1,6 @@
 import {Router} from 'express'
-import {getRepository} from 'typeorm'
+import { getRepository, getCustomRepository } from 'typeorm';
+import UserRepository from '../repositories/UserRepository';
 import User from '../models/User'
 
 const userRouter = Router()
@@ -26,7 +27,13 @@ userRouter.post('/', async(request, response) => {
 })
 
 userRouter.get('/', async (request, response) => {
-    return response.send({userId: request.userId})
-})
+    response.json(await getRepository(User).find());
+  });
+  
+  userRouter.get('/:name', async (request, response) => {
+    const repository = getCustomRepository(UserRepository);
+    const res = await repository.findByName(request.params.name);
+    response.json(`Você tem ${res.length} usuários`);
+  });
 
 export default userRouter
