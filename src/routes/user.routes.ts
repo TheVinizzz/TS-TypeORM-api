@@ -31,10 +31,14 @@ userRouter.get('/', authMiddleware, async (request, response) => {
     response.json(await getRepository(User).find());
   });
   
-  userRouter.get('/:id', async (request, response) => {
+  userRouter.get('/:id', authMiddleware, async (request, response) => {
     const repository = getCustomRepository(UserRepository);
     const res = await repository.findByName(request.params.id);
-    response.json(res);
+
+    function deletePassword(res: []) {
+        const destiny = res.map(({password, ...rest}: any) => rest)
+        return response.json(destiny)
+    }
   });
 
 export default userRouter
