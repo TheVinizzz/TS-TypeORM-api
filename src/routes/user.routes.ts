@@ -2,6 +2,7 @@ import {Router} from 'express'
 import { getRepository, getCustomRepository } from 'typeorm';
 import UserRepository from '../repositories/UserRepository';
 import User from '../models/User'
+import authMiddleware from './../middlewares/authMiddleware';
 
 const userRouter = Router()
 
@@ -26,7 +27,7 @@ userRouter.post('/', async(request, response) => {
     }
 })
 
-userRouter.get('/', async (request, response) => {
+userRouter.get('/', authMiddleware, async (request, response) => {
     response.json(await getRepository(User).find());
   });
   
