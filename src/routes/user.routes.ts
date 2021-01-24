@@ -34,11 +34,8 @@ userRouter.get('/', authMiddleware, async (request, response) => {
   userRouter.get('/:id', authMiddleware, async (request, response) => {
     const repository = getCustomRepository(UserRepository);
     const res = await repository.findByName(request.params.id);
-
-    function deletePassword(res: []) {
-        const destiny = res.map(({password, ...rest}: any) => rest)
-        return response.json(destiny)
-    }
+    const destiny = res.map(({password, ...rest}: any) => rest)
+    return response.json(destiny)
   });
 
 export default userRouter
