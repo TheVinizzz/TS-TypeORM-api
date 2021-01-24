@@ -30,10 +30,10 @@ userRouter.get('/', async (request, response) => {
     response.json(await getRepository(User).find());
   });
   
-  userRouter.get('/:name', async (request, response) => {
+  userRouter.get('/:id', async (request, response) => {
     const repository = getCustomRepository(UserRepository);
-    const res = await repository.findByName(request.params.name);
-    response.json(`Você tem ${res.length} usuários`);
+    const res = await repository.findByName(request.params.id);
+    response.json(res);
   });
 
 export default userRouter
