@@ -1,7 +1,7 @@
-console.log('process.env.DATABASEE_URL :>> ', process.env.API_ROUTE_AUTHENTICATE);
+console.log('process.env.DATABASEE_URL :>> ');
 module.exports = {
   "type": "postgres",
-  "url": process.env.API_ROUTE_AUTHENTICATE,
+  "url": process.env.DATABASE_URL,
   "entities": [
     "dist/models/**/*.js"
  ],
