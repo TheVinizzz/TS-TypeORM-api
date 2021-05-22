@@ -27,7 +27,7 @@ userRouter.post('/', async(request, response) => {
     }
 })
 
-userRouter.get('/', authMiddleware, async (request, response) => {
+userRouter.get('/', async (request, response) => {
     const listUsers = await getRepository(User).find()
     const destiny = listUsers.map(({password, ...rest}: any) => rest)
     return response.json(destiny)
